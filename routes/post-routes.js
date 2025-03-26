@@ -27,7 +27,7 @@ database.collection("posts").find({}).toArray((error, result) => {
 app.post("/posts/addPost", upload.single("image"), async (req, res) => {
 try {
     const imageUrl = req.file
-    ? `https://pwsi-backend.onrender.com/uploads/${req.file.filename}`
+    ? `http://localhost:5038/uploads/${req.file.filename}`
     : null;
 
     await database.collection("posts").insertOne({
@@ -103,7 +103,7 @@ try {
 
     let imageUrl = post.image;
     if (req.file) {
-        const newImagePath = `https://pwsi-backend.onrender.com/uploads/${req.file.filename}`;
+        const newImagePath = `http://localhost:5038/uploads/${req.file.filename}`;
         const oldImagePath = path.join(__dirname, "uploads", path.basename(post.image));
         if (fs.existsSync(oldImagePath)) {
             fs.unlinkSync(oldImagePath);
