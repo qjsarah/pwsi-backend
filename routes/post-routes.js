@@ -7,7 +7,7 @@ const path = require('path');
 // Configure multer for file storage
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-      cb(null, "uploads/");
+      cb(null, "public/uploads/");
     },
     filename: function (req, file, cb) {
       cb(null, Date.now() + "-" + file.originalname);
@@ -53,7 +53,7 @@ try {
         return res.status(404).json({ error: "Post not found" });
     }
 
-    const oldImagePath = path.join(__dirname, "uploads", path.basename(post.image));
+    const oldImagePath = path.join(__dirname, "public/uploads", path.basename(post.image));
     if (fs.existsSync(oldImagePath)) {
         fs.unlinkSync(oldImagePath);
     }
@@ -104,10 +104,12 @@ try {
     let imageUrl = post.image;
     if (req.file) {
         const newImagePath = `http://localhost:5038/uploads/${req.file.filename}`;
-        const oldImagePath = path.join(__dirname, "uploads", path.basename(post.image));
-        if (fs.existsSync(oldImagePath)) {
-            fs.unlinkSync(oldImagePath);
-        }
+        if (post.image) {
+            const oldImagePath = path.join(__dirname, "public/uploads", path.basename(post.image));
+            if (fs.existsSync(oldImagePath)) {
+                fs.unlinkSync(oldImagePath);
+            }
+        }        
         imageUrl = newImagePath;
     }
 
