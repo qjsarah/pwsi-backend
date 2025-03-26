@@ -103,7 +103,7 @@ try {
 
     let imageUrl = post.image;
     if (req.file) {
-        const newImagePath = `http://localhost:5038/uploads/${req.file.filename}`;
+        const newImagePath = `https://pwsi-backend.onrender.com/uploads/${req.file.filename}`;
         const oldImagePath = path.join(__dirname, "uploads", path.basename(post.image));
         if (fs.existsSync(oldImagePath)) {
             fs.unlinkSync(oldImagePath);
