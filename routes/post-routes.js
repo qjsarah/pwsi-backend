@@ -27,7 +27,7 @@ database.collection("posts").find({}).toArray((error, result) => {
 app.post("/posts/addPost", upload.single("image"), async (req, res) => {
 try {
     const imageUrl = req.file
-    ? `http://localhost:5038/uploads/${req.file.filename}`
+    ? `https://pwsi-backend.onrender.com/uploads/${req.file.filename}`
     : null;
 
     await database.collection("posts").insertOne({
